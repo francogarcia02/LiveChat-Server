@@ -1,0 +1,79 @@
+POST http://localhost:4000/register
+Content-Type: application/json
+
+{
+    "username": "Fran02fcg",
+    "password": "Frangarcia.00"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username": "Fran02fcg",
+    "password": "Frangarcia.00"
+}
+
+###
+
+GET http://localhost:4000/getData
+
+###
+
+POST http://localhost:4000/create-conversation
+Content-Type: application/json
+
+{
+    "username1": "Fran02fcg",
+    "username2": "cuentaEjemplo"
+}
+
+###
+
+POST http://localhost:4000/send-notification
+Content-Type: application/json
+
+{
+    "sender": "Franco",
+    "receiver": "Fran02fcg"
+}
+
+###
+
+POST http://localhost:4000/get-notifications
+Content-Type: application/json
+
+{
+    "receiver": "Fran02fcg"
+}
+
+###
+
+POST http://localhost:4000/reject-notification
+Content-Type: application/json
+
+{
+    "id": "6b514e95-7250-4b16-b4c7-b59754512cee"
+}
+
+
+###
+
+POST http://localhost:4000/delete-conversation
+Content-Type: application/json
+
+{
+    "username1": "Fran02fcg",
+    "username2": "Franco"
+}
+
+###
+
+POST http://localhost:4000/get-conversations
+Content-Type: application/json
+
+{
+    "username": "Fran02fcg"
+}
