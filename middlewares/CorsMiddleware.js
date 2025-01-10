@@ -1,9 +1,27 @@
 import cors from 'cors';
 
-export const corsMiddleWare = () => {
+const ACCEPTED_ORIGINS = [
+    'http://localhost:4000',
+    'http://localhost:3000',
+    'http://localhost:8080',
+    'https://live-chat-client-steel.vercel.app/'
+];
+
+export const corsMiddleWare = ({accepted_origins = ACCEPTED_ORIGINS} = {}) => {
     return cors({
-        origin: '*', // Permite solicitudes desde cualquier dominio
-        credentials: false, // No se permite el envío de credenciales (cookies, headers personalizados, etc.)
+        origin: (origin, callback) => {
+            if (accepted_origins.includes(origin)) {
+                return callback(null, true);
+            }
+
+            if (!origin) {
+                // Permitir solicitudes desde herramientas como Postman o Curl
+                return callback(null, true);
+            }
+
+            return callback(new Error('No permitido, error de CORS'));
+        },
+        credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE'], 
         allowedHeaders: ['Content-Type', 'Authorization']
     });
