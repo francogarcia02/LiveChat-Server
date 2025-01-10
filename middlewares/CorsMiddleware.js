@@ -4,8 +4,7 @@ const ACCEPTED_ORIGINS = [
     'http://localhost:4000',
     'http://localhost:3000',
     'http://localhost:8080',
-    'https://live-chat-client-steel.vercel.app/' // Cambia esto al origen correcto
-    // Agrega más orígenes si es necesario
+    'https://live-chat-client-steel.vercel.app'
 ];
 
 export const corsMiddleWare = ({accepted_origins = ACCEPTED_ORIGINS} = {}) => {
