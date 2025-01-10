@@ -11,11 +11,20 @@ const ACCEPTED_ORIGINS = [
 ];
 
 export const corsMiddleWare = ({accepted_origins = ACCEPTED_ORIGINS} = {}) => {
-    console.log(accepted_origins)
+    
+    const ACCEPTED_ORIGINS = [
+        'http://localhost:4000',
+        'http://localhost:3000',
+        'http://localhost:8080',
+        'https://live-chat-client-steel.vercel.app/',
+        'https://live-chat-client-steel.vercel.app',
+        'http://live-chat-client-steel.vercel.app/',
+        'http://live-chat-client-steel.vercel.app'
+    ];
     
     return cors({
         origin: (origin, callback) => {
-            if (accepted_origins.includes(origin)) {
+            if (ACCEPTED_ORIGINS.includes(origin)) {
                 return callback(null, true);
             }
 
