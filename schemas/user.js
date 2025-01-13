@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 const passwordSchema = z.string()
-  .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
-  .max(20, { message: "La contraseña no puede tener más de 20 caracteres" })
-  .regex(/[A-Z]/, { message: "La contraseña debe contener al menos una letra mayúscula" })
-  .regex(/[a-z]/, { message: "La contraseña debe contener al menos una letra minúscula" })
-  .regex(/[0-9]/, { message: "La contraseña debe contener al menos un número" })
-  .regex(/[\W_]/, { message: "La contraseña debe contener al menos un carácter especial" }); // carácter especial como @, #, etc.
+.min(8, { message: "The password must be at least 8 characters long" })
+.max(20, { message: "The password cannot be longer than 20 characters" })
+.regex(/[A-Z]/, { message: "The password must contain at least one uppercase letter" })
+.regex(/[a-z]/, { message: "The password must contain at least one lowercase letter" })
+.regex(/[0-9]/, { message: "The password must contain at least one number" })
+.regex(/[\W_]/, { message: "The password must contain at least one special character" });// carácter especial como @, #, etc.
 
 const userSchema = z.object({
     username: z.string({

@@ -17,14 +17,13 @@ export const corsMiddleWare = ({accepted_origins = ACCEPTED_ORIGINS} = {}) => {
             }
 
             if (!origin) {
-                // Permitir solicitudes desde herramientas como Postman o Curl
                 return callback(null, true);
             }
 
             return callback(new Error(`Origen no permitido: ${origin}`));
         },
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-        allowedHeaders: ['Content-Type', 'Authorization']
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header']
     });
 };

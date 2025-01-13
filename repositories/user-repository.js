@@ -9,7 +9,11 @@ export class UserRepository {
         //Validar campos
         const result = validateUser({username: username, password: password})
         if(result.error){
-            return({error: result.error, regex: true}) 
+            let errorMessages = []
+            result.error.issues.forEach(error => {
+                errorMessages.push(error.message)
+            })
+            return({error: errorMessages}) 
         }
 
         //Verificar que no existe otro usuario con ese nombre  

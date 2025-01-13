@@ -222,7 +222,6 @@ app.post('/register', async (req, res) => {
     });
 
     const data = await recaptchaResponse.json();
-    console.log(data)
     /*
     if (!data.success) {
         return res.status(400).json({ error: 'reCAPTCHA verification failed'});
