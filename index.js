@@ -199,6 +199,7 @@ app.post('/login', async (req, res) => {
         } else if (error.message === 'Contraseña incorrecta') {
             return res.status(401).json({ error: 'Incorrect Password or Username' });
         } else {
+            console.log(error)
             return res.status(500).json({ error: 'Server error' });
         }
     }
