@@ -8,7 +8,8 @@ const ACCEPTED_ORIGINS = [
     'http://live-chat-client-steel.vercel.app',
     'https://live-chat-client-francogarcia02-admins-projects.vercel.app/',
     'https://live-chat-client-git-main-francogarcia02-admins-projects.vercel.app/',
-    'https://live-chat-client-icgbad81c-francogarcia02-admins-projects.vercel.app'
+    'https://live-chat-client-icgbad81c-francogarcia02-admins-projects.vercel.app',
+    /\.vercel\.app$/,
 ];
 
 export const corsMiddleWare = ({accepted_origins = ACCEPTED_ORIGINS} = {}) => {
