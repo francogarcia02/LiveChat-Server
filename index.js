@@ -73,12 +73,14 @@ await db.execute(`
 );
 `)
 
+
 await db.execute(`
     CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     conversation_id TEXT NOT NULL,     
     sender TEXT NOT NULL,           
     content TEXT,  
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (conversation_id) REFERENCES conversations(id) ON DELETE CASCADE,
     FOREIGN KEY (sender) REFERENCES users(username) ON DELETE CASCADE
 );
@@ -101,14 +103,25 @@ io.on('connection', async (socket) => {
             console.error('Error en el catch: ', error);
             return;
         }
+
+        let resultToCreatedAt
+        try {
+            resultToCreatedAt = await db.execute({
+                sql: `SELECT * FROM messages WHERE id = ?`,
+                args: [result.lastInsertRowid]
+            })
+        } catch (error) {
+            console.log('Error en el segundo catch del chat_message: ', error)
+            return
+        }
+
         io.to(conversationId).emit('chat_message', {
             id: result.lastInsertRowid.toString(),
             msg,
             username,
+            created_at: resultToCreatedAt.rows[0].created_at
         });
     });
-
-    
 
     socket.on('fetch_messages', async ({ conversationId, offset = 0 }) => {
         try {
@@ -122,6 +135,7 @@ io.on('connection', async (socket) => {
                     id: row.id.toString(),
                     msg: row.content,
                     username: row.sender,
+                    created_at: row.created_at
                 });
             });
         } catch (error) {
