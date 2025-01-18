@@ -209,11 +209,11 @@ app.post('/login', async (req, res) => {
     }
 
     res
-    .cookie('access_token',token,{
-        httpOnly: false,
-        secure: process.eventNames.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 1000 * 60  * 60
+    .cookie('access_token', token, {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'Lax', 
+        maxAge: 1000 * 60 * 60, 
     })
     .json({
         message: 'Login successfull',
@@ -237,11 +237,10 @@ app.post('/register', async (req, res) => {
     });
 
     const data = await recaptchaResponse.json();
-    /*
+
     if (!data.success) {
         return res.status(400).json({ error: 'reCAPTCHA verification failed'});
     }
-    */
 
     let result
     
@@ -268,13 +267,19 @@ app.post('/logout', (req, res) => {
     .redirect('/')
 })
 
-app.get('/getData', (req, res) => {
+app.post('/getData', async (req, res) => {
     const {user} = req.session
-
     if(!user){
-        return res.status(403).json({Error : 'User undefined'})
+        return res.status(403).json({error : 'User undefined'})
     }
-    res.json(user);
+    res.json({
+        success: true,
+        user: {
+            id: user.id,
+            username: user.username
+        }
+    });
+
 })
 
 //Messages Routes
